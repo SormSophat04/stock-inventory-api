@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: stock-inventory-backend
+    runtime: docker
+    region: singapore
+    plan: free
+    branch: main
+    repo: https://github.com/YOUR_USERNAME/YOUR_REPO_NAME # Update this!
+    envVars:
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "true"
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: stock-inventory-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: stock-inventory-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: stock-inventory-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: stock-inventory-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: stock-inventory-db
+          property: password
+
+databases:
+  - name: stock-inventory-db
+    databaseName: stock_inventory
+    user: stock_user
+    plan: free
+    region: singapore

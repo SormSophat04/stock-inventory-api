@@ -1,0 +1,48 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stock_inventory_app
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_NAME: "Stock Inventory"
+      APP_ENV: local
+      APP_KEY: base64:ReplaceWithRealKeyForLocalDevUsePhpArtisanKeyGenerate=
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      LOG_CHANNEL: stderr
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: stock_inventory
+      DB_USERNAME: stock_user
+      DB_PASSWORD: stock_password
+    depends_on:
+      - db
+    networks:
+      - stock-network
+
+  db:
+    image: postgres:15
+    container_name: stock_inventory_db
+    environment:
+      POSTGRES_DB: stock_inventory
+      POSTGRES_USER: stock_user
+      POSTGRES_PASSWORD: stock_password
+    volumes:
+      - stock_db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - stock-network
+
+networks:
+  stock-network:
+    driver: bridge
+
+volumes:
+  stock_db_data:

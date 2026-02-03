@@ -16,7 +16,6 @@
 .phpunit.result.cache
 docker-compose.yml
 Dockerfile
-docker-entrypoint.sh
 tests
 phpunit.xml
 README.md

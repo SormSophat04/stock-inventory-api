@@ -8,9 +8,10 @@ echo "Running migrations..."
 php artisan migrate --force
 
 # Cache config and routes
-echo "Caching configuration..."
-php artisan config:cache
-php artisan route:cache
+# Caching configuration...
+# php artisan config:cache
+# php artisan route:cache
+# php artisan view:cache
 # Create storage directories if they don't exist
 mkdir -p storage/framework/cache
 mkdir -p storage/framework/sessions
